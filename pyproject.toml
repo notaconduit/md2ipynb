@@ -1,0 +1,76 @@
+[project]
+name = "md2ipynb"
+version = "0.1.1"
+description = "A Python Tool to Convert Markdown Files to Jupyter Notebooks"
+authors = [
+    { name = "notaconduit", email = "email@email" }
+]
+dependencies = [
+    "pypandoc>=1.15",
+    "nbformat>=5.10.4",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+license = { text = "MIT" }
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Topic :: Text Processing :: Markup :: Markdown",
+    "Topic :: Scientific/Engineering :: Information Analysis",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.3.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=1.3.0",
+]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/md2ipynb"]
+
+[tool.rye.scripts]
+md2ipynb = { call = "src.md2ipynb.main:main" }
+test = "pytest tests/"
+lint = "flake8 src/ tests/"
+format = "black src/ tests/"
+typecheck = "mypy src/ tests/"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "--cov=src/md2ipynb --cov-report=term-missing"
+
+[tool.black]
+line-length = 88
+target-version = ["py38", "py39", "py310", "py311"]
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+
+[[tool.mypy.overrides]]
+module = "tests.*"
+disallow_untyped_defs = false
+disallow_incomplete_defs = false

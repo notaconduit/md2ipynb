@@ -1,27 +1,121 @@
 # Markdown2Ipynb
 
-Here's a Python script that converts a Markdown file to a Jupyter Notebook file, along with full documentation on how to run it.
+A Python tool to convert Markdown files to Jupyter Notebooks.
+
+## Features
+
+- Convert Markdown files to Jupyter Notebooks
+- Automatically handle code blocks as executable cells
+- Preserve formatting and structure from Markdown
+- Command-line interface for easy use
+- Python API for programmatic usage
 
 ## Requirements
-* Python 3.6 or higher* `pypandoc` and `nbformat` librariesYou can install these libraries using pip:
-```sh
-pip install pypandoc nbformat
 
+- Python 3.8 or higher
+- `pypandoc` and `nbformat` libraries
+
+## Installation
+
+You can install directly from PyPI:
+
+```sh
+pip install md2ipynb
+```
+
+Or from source:
+
+```sh
+git clone https://github.com/yourusername/md2ipynb.git
+cd md2ipynb
+pip install .
 ```
 
 ## Usage
-To use this script, simply run it from the command line and pass in the path to your input Markdown file and the path where you want to save your output Jupyter Notebook file. Here's the basic command format:
-```sh
-python convert.py <input-file> <output-file>
 
-```
-Replace `<input-file>` and `<output-file>` with the file paths to your own input and output files.
-For example, if you have a Markdown file named `my-markdown-file.md` in the same directory as the `convert.py` script, and you want to save the output Jupyter Notebook file as `my-notebook.ipynb`, you can use the following command:
-```sh
-python convert.py my-markdown-file.md my-notebook.ipynb
+### Command Line Interface
 
+Convert a Markdown file to a Jupyter Notebook:
+
+```sh
+md2ipynb input.md output.ipynb
 ```
-## Summary
-This Python script can be used to convert a Markdown file to a Jupyter Notebook file. To use it, simply run the `convert.py` script from the command line, passing in the path to your input Markdown file and the path where you want to save your output Jupyter Notebook file. If you have any issues or questions, feel free to reach out to the script author or open an issue on the GitHub repository.
+
+If you don't specify an output file, it will use the input filename with an `.ipynb` extension:
+
+```sh
+md2ipynb input.md
+# Creates input.ipynb
+```
+
+Use the `--verbose` flag for more detailed output:
+
+```sh
+md2ipynb input.md --verbose
+```
+
+### Python API
+
+```python
+from md2ipynb import convert_to_ipynb
+
+# Convert a Markdown file to a Jupyter Notebook
+result = convert_to_ipynb("input.md", "output.ipynb", verbose=True)
+
+if result:
+    print(f"Successfully converted to {result}")
+else:
+    print("Conversion failed")
+```
+
+## Development
+
+### Setup Development Environment
+
+```sh
+# Clone the repository
+git clone https://github.com/yourusername/md2ipynb.git
+cd md2ipynb
+
+# Install development dependencies
+pip install -e ".[dev]"
+```
+
+### Running Tests
+
+```sh
+# Run all tests
+pytest
+
+# Run tests with coverage
+pytest --cov=src/md2ipynb
+
+# Run specific tests
+pytest tests/test_conversion.py
+```
+
+### Code Quality
+
+```sh
+# Format code
+black src/ tests/
+
+# Sort imports
+isort src/ tests/
+
+# Run linter
+flake8 src/ tests/
+
+# Type checking
+mypy src/ tests/
+```
+
+## License
+
+MIT
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
  --------
